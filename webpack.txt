@@ -1,0 +1,57 @@
+npm install yarn
+GitHub Desktop
+
+gulp
+    cd [filename] // 進入指定資料夾
+    npm install --global gulp-cli ==>> npm install yarn // 載入
+    yarn global add gulp-cli ==>> yarn 
+    gulp --version
+    gulp
+
+open chrome-- http://localhost:8080 // 純粹打開網址
+
+entry 入口
+    webpack.config.js
+output 輸出
+loader 
+    配置configuration
+    
+https://github.com/colorwalf/webpack-boilerplate
+WEBPACK 範例
+    cd [filename] // 進入指定資料夾
+    npm install
+    npm install -g webpack-cli yarn
+    webpack
+
+GULP 環境安裝
+Step.1 安裝 Gulp
+Step.2 npm install 
+Step.3
+WEBPACK 環境安裝
+Step.1 安裝Webpack
+Step.2 npm install  
+Step.3 yarn global 
+Step.4
+Step.5
+
+WEBPACK 環境安裝 (css)
+npm install clean-webpack-plugin cross-env cssnano file-loader html-webpack-plugin mini-css-extract-plugin
+    GipHub: https://github.com/colorwalf/webpack-sass
+
+
+npm install -g webpack webpack-dev-server
+npm run dev
+npm install css-loader style-loader
+{
+  test: /\.(jpe?g|png|gif|svg)$/,
+  use:[
+    {
+      loader:'url-loader',
+      options:{limit:1000}
+    },
+    {
+      loader:'image-webpack-loader',
+      options:{byPassOnDebug:true}
+    }
+  ]
+},
