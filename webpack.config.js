@@ -1,49 +1,43 @@
-const path = require('path')
+const path = require("path");
+const rootPath = path.join(__dirname,'./');
+
+//æŠ½å‡ºcssæª”æ¡ˆ
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const extractSass = new MiniCssExtractPlugin({
+    filename: "[name].min.css", //filename: "[name].[contenthash].css",
+    chunkFilename: '[id].css',
+    ignoreOrder: false, // Enable to remove warnings about conflicting order
+});
 
 module.exports = {
-  // ¥´¥]¼Ò¦¡¡A¥i¿ïdevelopment©Mproduction
-  mode: 'development',
-  // °t¸m¤J¤fÀÉ®×
-  entry: 
-		main:'./src/index.js',
-  // °t¸m¿é¥XÀÉ®×
-  output: {
-    // ¿é¥X¸ô®|
-    path: path.resolve(__dirname, './dist'),
-    // ¿é¥XÀÉ¦WºÙ
-    filename: 'build.js'
-  },
-  // ¼Ò²Õ¡A¥i¥H¨Ï¥Î¦UºØloader¡A¤ñ¦pcssÂà´«¡A¹Ï¤ùÀ£ÁYµ¥
-  module: {
-    rules: [
-      {
-        test: /\.css$/, // ¤Ç°tcssÀÉ®×¼Ò²Õ
-        use: ['style-loader', 'css-loader'] // ¨Ï¥Î¹ïÀ³ªºloader³B²z
-      },
-      {
-        test: /\.(png|gif|jpe?g|svg)$/, // ¤Ç°t¹Ï¤ùÀÉ®×
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[path][name].[ext]?[hash]',
-            // ·|¿é¥XÃþ¦ü¤U­±³o¼Ëªºµ²ªG
-            // path/to/file.png?e43b20c069c4a01867c31e98cbce33c9
-          }
-        }]
-      },
-      {
-        test: /\.(html)$/, // ¥Î¨Ó¤Ç°thtmlÀÉ®×¼Ò²Õ(html»Ý­n³q¹L¥~±¾¤Þ¤J¡H)¡A¥i¥H±Nhtml¼ÐÅÒ¤¤¤Þ¤Jªº¹Ï¤ù¸ê·½¶i¦æ¥´¥]
-        use: [{
-          loader: 'html-loader',
-          options: {
-            attrs: ['<tag>:<attribute>'] // <tag>¬°¤Þ¤J¹Ï¤ùªº¼ÐÅÒ¦W¡A<attribute>¬°¤Þ¤J¹Ï¤ùªºÄÝ©Ê¦W
-          }
-        }]
-      }
+    mode:'development',
+    entry: {
+        styles: `${rootPath}src/styles/index.scss`,
+    },
+    output: {
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'build')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(sa|sc|c)ss$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: true,
+                            reloadAll: true,
+                        },
+                    },
+                    'css-loader',
+                    'sass-loader',
+                ],
+            }
+        ]   //rules end
+    },
+    plugins: [
+        extractSass,
     ]
-  },
-  // ¥~±¾¡A¥Î©ó¥Í¦¨¼ÒªO©M¨ä¥¦¥\¯à
-  plugins: [],
-  // ¥i°t¸m¥»¦aªºwebpack¶}µoªA°È¥\¯à
-  devServer: {}
-}
+};
